@@ -15,6 +15,31 @@ Docker runs on all 3 major Operating System
 #+NAME: docker
 [[static/containers.png]]
 
+
+* What is a Container?
+
+Container can be considered as a standard unit of software. A container major components are Namespaces and Cgroups.
+Namespaces and Cgroups both are Kernel features.
+
+***** Namespaces
+      We can create namespaces with command unshare. Namespaces provides isolation for the process.
+
+      - Process ID
+      - Mount
+      - IPC (Inter process communication)
+      - User (currently experimental support for)
+      - Network
+
+***** Cgroups
+      Cgroups provide resource limitation and reporting capability within the container space.They allow granular control over what host resources are allocated to the containers and when they are allocated.
+
+
+      - CPU
+      - Memory
+      - Network Bandwidth
+      - Disk
+      - Priority
+
 Containers are not new, but their use for easily deploying applications is.
 
 Containerization is increasingly popular because containers are:
