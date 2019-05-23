@@ -1,0 +1,11 @@
+* What is Docker?
+
+Docker was created by Solomon Hykes (Original Author), now it is developed and maintained by Docker INC.
+Docker is a tool to make application build, ship and deploy irrespective of any Operating System or any
+environment.
+
+Docker runs on all 3 major Operating System
+
+  - Linux
+  - MacOS
+  - Microsoft Windows
