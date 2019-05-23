@@ -25,3 +25,13 @@ Containerization is increasingly popular because containers are:
   - Portable: You can build locally, deploy to the cloud, and run anywhere.
   - Scalable: You can increase and automatically distribute container replicas.
   - Stackable: You can stack services vertically and on-the-fly.
+
+
+* Who all can use Docker?
+
+Docker can be use by Sys Admins, QA, Developers and DevOps. Running application inside docker helps and make
+application platform independent.
+
+* How Docker differs from Virtual Machines?
+
+A container runs on Operating System without any layer, and share the kernel with the host Operating System.
