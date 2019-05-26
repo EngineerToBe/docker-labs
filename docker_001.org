@@ -1,0 +1,28 @@
+* Create our first Docker Image!
+
+Docker images are further categorized in 2 types
+
+  - Base Image
+
+    If we need to have more control on whats going in my images we should use base image, which means
+    we need to create a Docker image from scratch.
+
+  - Parent Image
+
+    Parent image is something we will be using image created by someone else and build our image on top
+    of this image.
+
+Lets create our first Docker Base Image
+
+#+BEGIN_SRC
+sudo debootstrap stretch stretch > /dev/null
+sudo tar -C stretch -c . | docker import - stretch
+#+END_SRC
+
+Lets create our first Docker Parent Image
+
+#+BEGIN_SRC
+FROM scratch
+ADD hello /
+CMD ["/hello"]
+#+END_SRC
