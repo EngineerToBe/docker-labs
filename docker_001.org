@@ -30,40 +30,53 @@ CMD ["/hello"]
 We can write Docker instructions in a file name *Dockerfile*. Lets see some Dockerfile instructions.
 
   - FROM ubuntu
+
     This must be the fist line in *Dockerfile*.
 
   - MAINTAINER
+
     This is to add the Maintainer in Docker image.
 
   - ARG
+
     Build time variables and only available during the creation of Docker image.
 
   - ENV
+
     To setup the environment variable in Docker container.
 
   - COPY
+
     It takes source and destination locations to copy the file from host machine where we will be building the docker image to docker image.
 
   - ADD
+
     It do what *COPY* does but apart from that it also support the URL's to get download from external sources. Also it understand the tar formats.
 
   - RUN
+
     TO execute command in docker image layer.
 
   - CMD
+
     sets default command and/or parameters, which can be overwritten from command line when docker container runs.
 
   - ENTRYPOINT
+
     configures a container that will run as an executable.
 
   - EXPOSE
+
     To expose the ports on which the application inside the container listening on.
 
   - WORKDIR
+
     Its sets up the working directory inside the container.
 
   - LABEL
+
     Its a metadata for the container it takes Key Value pair.
 
   - VOLUME
+
     It creates a mount point inside the Docker container from the host machine.
