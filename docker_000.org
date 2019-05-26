@@ -61,9 +61,6 @@ Major coomponents of the Docker are
       - Disk
       - Priority
 
-[[static/architecture.png
-]]
-
 Containers are not new, but their use for easily deploying applications is.
 
 Containerization is increasingly popular because containers are:
