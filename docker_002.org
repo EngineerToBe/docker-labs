@@ -7,5 +7,4 @@ The philosophy of CNM is to provide application portability across diverse infra
 This model strikes a balance to achieve application portability and also takes advantage of special features and capabilities of the infrastructure.
 
 [[static/cnm.png
-
 ]]
