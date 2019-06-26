@@ -1,3 +1,5 @@
+#+TITLE: Docker Overview
+
 * What is Docker?
 
 Docker was created by Solomon Hykes (Original Author), now it is developed and maintained by Docker INC.
@@ -44,7 +46,7 @@ Major coomponents of the Docker are
      - Services
 
   - Namespaces
-    We can create namespaces with command unshare. Namespaces provides isolation for the process.
+    Namespaces provides isolation for the process.
 
       - Process ID
       - Mount

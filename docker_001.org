@@ -1,3 +1,5 @@
+#+TITLE: First Docker Image
+
 * Create our first Docker Image!
 
 Docker images are further categorized in 2 types
