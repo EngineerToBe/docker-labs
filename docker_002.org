@@ -1,40 +1,125 @@
-#+TITLE: Docker Networking
+#+TITLE: First Docker Image
 
-* Docker Networking Model
+* Create our first Docker Image!
 
-The Docker networking architecture is built on a set of interfaces called the Container Networking Model (CNM).
-The philosophy of CNM is to provide application portability across diverse infrastructures.
-This model strikes a balance to achieve application portability and also takes advantage of special features and capabilities of the infrastructure.
+Docker images are further categorized in 2 types
 
-[[static/cnm.png]]
+  - Base Image
 
-* Network drivers
+    If we need to have more control on whats going in my images we should use base image, which means
+    we need to create a Docker image from scratch.
 
-Docker’s networking subsystem is pluggable, using drivers. Several drivers exist by default, and provide core networking functionality:
+  - Parent Image
 
-    - bridge: The default network driver. If you don’t specify a driver, this is the type of network you are creating. Bridge networks are usually used when your applications run in standalone containers that need to communicate. See bridge networks.
-
-    - host: For standalone containers, remove network isolation between the container and the Docker host, and use the host’s networking directly. host is only available for swarm services on Docker 17.06 and higher. See use the host network.
-
-    - overlay: Overlay networks connect multiple Docker daemons together and enable swarm services to communicate with each other. You can also use overlay networks to facilitate communication between a swarm service and a standalone container, or between two standalone containers on different Docker daemons. This strategy removes the need to do OS-level routing between these containers. See overlay networks.
-
-    - macvlan: Macvlan networks allow you to assign a MAC address to a container, making it appear as a physical device on your network. The Docker daemon routes traffic to containers by their MAC addresses. Using the macvlan driver is sometimes the best choice when dealing with legacy applications that expect to be directly connected to the physical network, rather than routed through the Docker host’s network stack. See Macvlan networks.
+    Parent image is something we will be using image created by someone else and build our image on top
+    of this image.
 
 
-* Linux Fundamentals
+We can write Docker instructions in a file name *Dockerfile*. Lets see some Dockerfile instructions.
 
-    - The Linux Bridge
+  - *FROM*
 
-      A Linux bridge is a Layer 2 device that is the virtual implementation of a physical switch inside the Linux kernel. It forwards traffic based on MAC addresses which it learns dynamically by inspecting traffic. Linux bridges are used extensively in many of the Docker network drivers. A Linux bridge is not to be confused with the bridge Docker network driver which is a higher level implementation of the Linux bridge.
+    This must be the fist line in *Dockerfile*.
 
-    - Network Namespaces
+  - *MAINTAINER*
 
-      A Linux network namespace is an isolated network stack in the kernel with its own interfaces, routes, and firewall rules. It is a security aspect of containers and Linux, used to isolate containers. In networking terminology they are akin to a VRF that segments the network control and data plane inside the host. Network namespaces ensure that two containers on the same host aren't able to communicate with each other or even the host itself unless configured to do so via Docker networks. Typically, CNM network drivers implement separate namespaces for each container. However, containers can share the same network namespace or even be a part of the host's network namespace. The host network namespace containers the host interfaces and host routing table. This network namespace is called the global network namespace.
+    This is to add the Maintainer in Docker image.
 
-    - Virtual Ethernet Devices
+  - *ARG*
 
-      A virtual ethernet device or veth is a Linux networking interface that acts as a connecting wire between two network namespaces. A veth is a full duplex link that has a single interface in each namespace. Traffic in one interface is directed out the other interface. Docker network drivers utilize veths to provide explicit connections between namespaces when Docker networks are created. When a container is attached to a Docker network, one end of the veth is placed inside the container (usually seen as the ethX interface) while the other is attached to the Docker network.
+    Build time variables and only available during the creation of Docker image.
 
-    - iptables
+  - *ENV*
 
-      iptables is the native packet filtering system that has been a part of the Linux kernel since version 2.4. It's a feature rich L3/L4 firewall that provides rule chains for packet marking, masquerading, and dropping. The native Docker network drivers utilize iptables extensively to segment network traffic, provide host port mapping, and to mark traffic for load balancing decisions.
+    To setup the environment variable in Docker container.
+
+  - *COPY*
+
+    It takes source and destination locations to copy the file from host machine where we will be building the docker image to docker image.
+
+  - *ADD*
+
+    It do what *COPY* does but apart from that it also support the URL's to get download from external sources. Also it understand the tar formats.
+
+  - *RUN*
+
+    TO execute command in docker image layer.
+
+  - *CMD*
+
+    sets default command and/or parameters, which can be overwritten from command line when docker container runs.
+
+  - *ENTRYPOINT*
+
+    configures a container that will run as an executable.
+
+  - *EXPOSE*
+
+    To expose the ports on which the application inside the container listening on.
+
+  - *WORKDIR*
+
+    Its sets up the working directory inside the container.
+
+  - *LABEL*
+
+    Its a metadata for the container it takes Key Value pair.
+
+  - *VOLUME*
+
+    It creates a mount point inside the Docker container from the host machine.
+
+*** Lets create our first Docker Base Image
+
+   #+BEGIN_SRC
+     sudo debootstrap stretch stretch > /dev/null
+     sudo tar -C stretch -c . | docker import - stretch
+   #+END_SRC
+
+*** Lets create our first Docker Image
+
+    - To create a Docker we need to create a *Dockerfile*, below is basic docker file.
+
+      #+BEGIN_SRC
+        FROM scratch
+        ADD hello.sh /hello.sh
+      #+END_SRC
+
+   - To create a docker image use below command
+
+      #+BEGIN_SRC
+        docker build -t myfirstdockerimage .
+
+        or you can specify the Dockerfile path too
+
+        docker build -t myfirstdockerimage . -f Dockerfile
+
+      #+END_SRC
+
+   - To run a docker container for the image created with above step
+
+      #+BEGIN_SRC
+
+        docker run myfirstdockerimage
+
+      #+END_SRC
+
+   - To check the docker images
+
+      #+BEGIN_SRC
+
+        docker images
+
+      #+END_SRC
+
+   - To check the running dockers
+
+      #+BEGIN_SRC
+
+        docker container ls
+
+        or
+
+        docker ps
+
+      #+END_SRC
