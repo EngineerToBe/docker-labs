@@ -2,5 +2,4 @@
 
 
 #+BEGIN_EXPORT html
-<a href="https://asciinema.org/a/264578" target="_blank"><img src="https://asciinema.org/a/264578.svg" /></a>
-#+END_EXPORT
+<a href="[![asciicast](https://asciinema.org/a/264578.svg)](https://asciinema.org/a/264578)]]
